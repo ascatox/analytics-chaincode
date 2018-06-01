@@ -1,4 +1,3 @@
-
 //clod16 chaincode
 
 
@@ -56,15 +55,13 @@ var Chaincode = class {
                 return shim.error(' Data with key' + args[0] + ' not found!!!');
             }
             const stringGet = datatransform.Transform.bufferToString(Buffer.from(stringGetbytes));
-            logger.debug('getData extract: ' +stringGetbytes);
+            logger.debug('getData extract: ' + stringGetbytes);
             return shim.success(Buffer.from(stringGet));
         } catch (e) {
             logger.info('getData - ERROR CATCH: ' + e);
             return shim.error('getData - Failed to get state with key: ' + key);
 
         }
-
-
     }
 
     async putData(stub, args) {
@@ -73,17 +70,16 @@ var Chaincode = class {
         if (args.length == 2) {
             try {
                 await stub.putState(args[0], Buffer.from(args[1]));
-                logger.debug('Data payload:' +args[1]);
+                logger.debug('Data payload:' + args[1]);
                 logger.debug('putData - Store successfull!!');
-                return shim.success('putData - Store successfull!!!');
+                return shim.success(Buffer.from('putData - Store successfull!!!'));
             } catch (e) {
                 logger.info('putData - ERROR CATCH (putState): ' + e);
                 return shim.error(e);
 
             }
-        }
-        else {
-            return shim.error("Argument wrong, aspected exactly two argument!!" +args);
+        } else {
+            return shim.error("Argument wrong, aspected exactly two argument!!" + args);
         }
     }
 };
